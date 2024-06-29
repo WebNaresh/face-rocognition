@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import useAppFunction from "../../hooks/useAppFunction";
-import Component1 from "./components/component1";
+import FacialRecognition from "./components/facial-recognition";
 
 const Home = () => {
   const { handleAlert } = useAppFunction();
@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <div style={{ height: "1222vh" }}>
-      <Component1 />
+      <FacialRecognition />
     </div>
   );
 };
