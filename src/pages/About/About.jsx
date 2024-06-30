@@ -4,7 +4,6 @@ import FacialRecognition from "./components/facial-recognition";
 const About = () => {
   return (
     <div>
-      About
       <FacialRecognition />
     </div>
   );
