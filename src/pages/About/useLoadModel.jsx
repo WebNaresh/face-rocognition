@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import * as faceApi from "face-api.js";
 import useAppFunction from "../../hooks/useAppFunction";
 
@@ -82,12 +83,68 @@ const useLoadModel = () => {
     },
   });
 
+  const uploadImageToBackend = async ({ descriptor, label }) => {
+    const config = { headers: { "Content-Type": "application/json" } };
+    const response = await axios.post(
+      `/face/upload-face`,
+      { descriptor, label },
+      config
+    );
+
+    return response.data;
+  };
+
+  const { mutateAsync: uploadImageToBackendMutation } = useMutation({
+    mutationFn: uploadImageToBackend,
+    onSuccess: (data) => {
+      console.log("Data uploaded successfully", data);
+    },
+    onError: (error) => {
+      console.error("Error uploading image to backend", error);
+    },
+  });
+
+  const getImageAndVerify = async ({ label }) => {
+    const config = { headers: { "Content-Type": "application/json" } };
+    const response = await axios.get(`/face/get-face/${label}`, config);
+    return response.data;
+  };
+
+  const { mutateAsync: getImageAndVerifyMutation } = useMutation({
+    mutationFn: getImageAndVerify,
+    onSuccess: async (data) => {
+      console.log("Data fetched successfully", data);
+      let matchScore = 0.63;
+      let descriptorFloat32 = new Float32Array(data?.faceData?.descriptor);
+      console.log(
+        `🚀 ~ file: useLoadModel.jsx:128 ~ descriptorFloat32:`,
+        descriptorFloat32
+      );
+      let secondImgElem = document.getElementById("second-img");
+      let faces = await detectFacesMutation({
+        img: secondImgElem,
+        canvasId: "canvas2",
+      });
+      let labeledFace = new faceApi.LabeledFaceDescriptors("Face", [
+        descriptorFloat32,
+      ]);
+      let faceMatcher = new faceApi.FaceMatcher(labeledFace, matchScore);
+      let results = await faceMatcher.findBestMatch(faces[0].descriptor);
+      console.log(`🚀 ~ file: useLoadModel.jsx:128 ~ results:`, results);
+    },
+    onError: (error) => {
+      console.error("Error fetching image from backend", error);
+    },
+  });
+
   return {
     data,
     isLoading,
     isFetched,
     detectFacesMutation,
     matchFacesMutation,
+    uploadImageToBackendMutation,
+    getImageAndVerifyMutation,
   };
 };
 

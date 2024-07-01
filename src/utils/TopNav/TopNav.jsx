@@ -1,4 +1,4 @@
-import { Apps, Face2, Image, Person } from "@mui/icons-material";
+import { Apps, DataArray, Face2, Image, Person } from "@mui/icons-material";
 import {
   AppBar,
   Box,
@@ -79,6 +79,21 @@ export default function TopNav() {
           <Image className="text-white" />
           <div style={{ fontSize: "10px", fontWeight: "bold", color: "white" }}>
             Url to Face Recognition
+          </div>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link
+          to={"/image-with-backend"}
+          style={{
+            display: "flex",
+            gap: 8,
+            alignItems: "center",
+          }}
+        >
+          <DataArray className="text-white" />
+          <div style={{ fontSize: "10px", fontWeight: "bold", color: "white" }}>
+            Image with Backend
           </div>
         </Link>
       </MenuItem>
