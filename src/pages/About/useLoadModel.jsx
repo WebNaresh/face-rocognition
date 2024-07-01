@@ -37,19 +37,12 @@ const useLoadModel = () => {
   const { mutateAsync: detectFacesMutation } = useMutation({
     mutationFn: detectFaces,
     onSuccess: async (data, { canvasId }) => {
-      console.log(`🚀 ~ file: useLoadModel.jsx:40 ~ canvasId:`, canvasId);
       if (data.length === 0) {
-        // Handle the case where no faces are found
         handleAlert(true, "error", "No faces found in the image");
       } else if (data.length > 1) {
-        // Handle the case where more than one face is found
         handleAlert(true, "warning", "More than one face found in the image");
       } else {
-        // Handle the case where exactly one face is found
-        // Proceed with any other logic for successful face detection
-        // const result = await matchFacesMutation(data[0]);
-
-        let faces = faceApi.resizeResults(data, { height: 300, width: 300 });
+        const faces = faceApi.resizeResults(data, { height: 300, width: 300 });
         faceApi.draw.drawDetections(document.getElementById(canvasId), faces);
       }
     },
@@ -77,12 +70,9 @@ const useLoadModel = () => {
   const { mutateAsync: matchFacesMutation } = useMutation({
     mutationFn: matchFaces,
     onSuccess: (data) => {
-      console.log(`🚀 ~ file: useLoadModel.jsx:73 ~ data:`, data);
       if (data._label === "Face") {
-        // Handle the case where a match is found
         handleAlert(true, "success", "Face match found");
       } else {
-        // Handle the case where no match is found
         handleAlert(true, "error", "Face match not found");
       }
     },

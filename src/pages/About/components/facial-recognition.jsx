@@ -12,17 +12,8 @@ const FacialRecognition = () => {
   const [firstImg, setFirstImg] = useState(defaultImg);
   const [secondImg, setSecondImg] = useState(defaultImg);
 
-  const {
-    data,
-    isFetched,
-    isLoading,
-    detectFacesMutation,
-    matchFacesMutation,
-  } = useLoadModel();
-  console.log(
-    `🚀 ~ file: facial-recognition.jsx:21 ~ data, isFetched, isLoading :`,
-    { data, isFetched, isLoading }
-  );
+  const { data, matchFacesMutation, isLoading, detectFacesMutation } =
+    useLoadModel();
 
   const handleFirstImageUpload = (e) => {
     let img = e.target.files[0];
@@ -46,11 +37,9 @@ const FacialRecognition = () => {
       img: firstImgElem,
       canvasId: "canvas1",
     });
-    // let checkFaced = await matchFacesMutation(faces[0]);
-    // console.log(
-    //   `🚀 ~ file: facial-recognition.jsx:48 ~ checkFaced:`,
-    //   checkFaced
-    // );
+    console.log(`🚀 ~ file: facial-recognition.jsx:51 ~ faces:`, faces);
+    const result = await matchFacesMutation(faces[0]);
+    console.log(`🚀 ~ file: facial-recognition.jsx:42 ~ result:`, result);
   };
 
   return (
