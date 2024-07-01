@@ -131,6 +131,11 @@ const useLoadModel = () => {
       let faceMatcher = new faceApi.FaceMatcher(labeledFace, matchScore);
       let results = await faceMatcher.findBestMatch(faces[0].descriptor);
       console.log(`🚀 ~ file: useLoadModel.jsx:128 ~ results:`, results);
+      if (results._label === "Face") {
+        handleAlert(true, "success", "Face match found");
+      } else {
+        handleAlert(true, "error", "Face match not found");
+      }
     },
     onError: (error) => {
       console.error("Error fetching image from backend", error);
