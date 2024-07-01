@@ -129,7 +129,7 @@ const useLoadModel = () => {
         descriptorFloat32,
       ]);
       let faceMatcher = new faceApi.FaceMatcher(labeledFace, matchScore);
-      let results = await faceMatcher.findBestMatch(faces[0].descriptor);
+      let results = faceMatcher.findBestMatch(faces[0].descriptor);
       console.log(`🚀 ~ file: useLoadModel.jsx:128 ~ results:`, results);
       if (results._label === "Face") {
         handleAlert(true, "success", "Face match found");
