@@ -1,4 +1,4 @@
-import { Apps, CorporateFare, Groups, Person } from "@mui/icons-material";
+import { Apps, Face2, Image, Person } from "@mui/icons-material";
 import {
   AppBar,
   Box,
@@ -53,32 +53,34 @@ export default function TopNav() {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <MenuItem onClick={handleMenuClose}>
-        <div
+        <Link
+          to={"/login"}
           style={{
             display: "flex",
             gap: 8,
             alignItems: "center",
           }}
         >
-          <Groups />
-          <div style={{ fontSize: "10px", fontWeight: "bold" }}>
-            Create Your Own Organization
+          <Face2 className="text-white" />
+          <div style={{ fontSize: "10px", fontWeight: "bold", color: "white" }}>
+            Optimized Face Recognition
           </div>
-        </div>
+        </Link>
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        <div
+        <Link
+          to={"/url-to-face"}
           style={{
             display: "flex",
             gap: 8,
             alignItems: "center",
           }}
         >
-          <CorporateFare />
-          <div style={{ fontSize: "10px", fontWeight: "bold" }}>
-            Create New Department
+          <Image className="text-white" />
+          <div style={{ fontSize: "10px", fontWeight: "bold", color: "white" }}>
+            Url to Face Recognition
           </div>
-        </div>
+        </Link>
       </MenuItem>
     </Menu>
   );
